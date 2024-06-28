@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-
-import LocaleSwitcher from '@/components/LocaleSwitcher';
 import { BaseTemplate } from '@/templates/BaseTemplate';
 
 export default function Layout(props: { children: React.ReactNode }) {
@@ -72,14 +70,10 @@ export default function Layout(props: { children: React.ReactNode }) {
               {t('sign_up_link')}
             </Link>
           </li>
-
-          <li>
-            <LocaleSwitcher />
-          </li>
         </>
       }
     >
-      <div className="py-5 text-xl [&_p]:my-6">{props.children}</div>
+      <div className=" text-xl">{props.children}</div>
     </BaseTemplate>
   );
 }
