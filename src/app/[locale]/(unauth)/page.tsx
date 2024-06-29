@@ -1,5 +1,4 @@
 import { getTranslations } from 'next-intl/server';
-
 import CategoryBar from '../../../components/CategoryBar';
 import ForumTopics from '../../../components/ForumTopics';
 import Highlight from '../../../components/Highlight';
@@ -18,19 +17,11 @@ export async function generateMetadata(props: { params: { locale: string } }) {
 }
 
 export default function Index() {
-  const firstForumData = forumData.data[0];
-
-  if (!firstForumData) {
-    return <div>No forum data available</div>;
-  }
-
   return (
-    <>
+      <div className="container mx-auto">
       <CategoryBar />
       <Highlight />
-      <ForumTopics data={firstForumData} />
-      <ForumTopics data={firstForumData} />
-      <ForumTopics data={firstForumData} />
-    </>
+      <ForumTopics />
+      </div>
   );
 }

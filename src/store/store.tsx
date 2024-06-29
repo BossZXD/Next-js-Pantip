@@ -1,16 +1,15 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
-
 import searchReducer from './searchSlice';
-import topicsReducer from './topicsSlice';
 
 interface HighlightState {
   highlights: Array<{
-    id: number;
-    title: string;
-    description: string;
-    image: string;
-    link: string;
+    _id: number;
+    name: string;
+    message: string;
+    weight: number;
+    image_url: string;
+    post_url: string;
   }>;
 }
 
@@ -35,8 +34,7 @@ export const { setHighlights } = highlightSlice.actions;
 export const store = configureStore({
   reducer: {
     search: searchReducer,
-    highlight: highlightSlice.reducer,
-    topics: topicsReducer,
+    highlight: highlightSlice.reducer
   },
 });
 
