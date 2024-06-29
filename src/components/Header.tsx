@@ -41,9 +41,9 @@ const Header: React.FC = () => {
       </div>
   
       <div className="flex items-center text-white justify-end w-full lg:w-1/4">
-        <button className="mr-2 sm:mr-4 text-sm lg:text-base">ตั้งกระทู้</button>
-        <button className="mr-2 sm:mr-4 text-sm lg:text-base">คอมมูนิตี้</button>
-        <button className="text-sm lg:text-base">เข้าสู่ระบบ / สมัครสมาชิก</button>
+        <a href="https://pantip.com/login" className="mr-2 sm:mr-4 text-sm lg:text-base">ตั้งกระทู้</a>
+        <a href="https://pantip.com/login" className="mr-2 sm:mr-4 text-sm lg:text-base">คอมมูนิตี้</a>
+        <a href="https://pantip.com/login" className="text-sm lg:text-base">เข้าสู่ระบบ / สมัครสมาชิก</a>
       </div>
     </header>
   );

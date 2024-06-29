@@ -1,170 +1,111 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, AppDispatch } from '../store/store';
-import { setTopics } from '../store/topicsSlice';
 
-const ForumTopics: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const topics = useSelector((state: RootState) => state.topics.topics);
-  const [visibleTopics, setVisibleTopics] = useState(topics.slice(0, 10));
-  const [showMore, setShowMore] = useState(false);
+import React, { useState, useEffect, useRef } from 'react';
 
-  useEffect(() => {
-    const fetchedTopics = [
-      {
-        topic_id: 42810545,
-        title: 'มีใครเคยเห็น ผญ ที่ทำงานหนัก แต่หน้าตายังสดใสทั้งวันบ้างคะ',
-        author: 'สมาชิกหมายเลข 7958967',
-        replies: 1,
-        views: 0,
-        timeAgo: '2024-06-28T15:32:17Z',
-      },
-      {
-        topic_id: 42810530,
-        title: 'บริษัทไลอ้อน #ชลบุรี หางาน ศรีราชา เครือสหพัฒน์',
-        author: 'สมาชิกหมายเลข 6687884',
-        replies: 0,
-        views: 0,
-        timeAgo: '2024-06-28T15:18:15Z',
-      },
-      {
-        topic_id: 42810557,
-        title: 'ทำไมคนขายของในติกตอกรวยจัง',
-        author: 'สมาชิกหมายเลข 6872113',
-        replies: 0,
-        views: 0,
-        timeAgo: '2024-06-28T15:41:45Z',
-      },
-      {
-        topic_id: 42810557,
-        title: 'ทำไมคนขายของในติกตอกรวยจัง',
-        author: 'สมาชิกหมายเลข 6872113',
-        replies: 0,
-        views: 0,
-        timeAgo: '2024-06-28T15:41:45Z',
-      },
-      {
-        topic_id: 42810557,
-        title: 'ทำไมคนขายของในติกตอกรวยจัง',
-        author: 'สมาชิกหมายเลข 6872113',
-        replies: 0,
-        views: 0,
-        timeAgo: '2024-06-28T15:41:45Z',
-      },
-      {
-        topic_id: 42810557,
-        title: 'ทำไมคนขายของในติกตอกรวยจัง',
-        author: 'สมาชิกหมายเลข 6872113',
-        replies: 0,
-        views: 0,
-        timeAgo: '2024-06-28T15:41:45Z',
-      },
-      {
-        topic_id: 42810557,
-        title: 'ทำไมคนขายของในติกตอกรวยจัง',
-        author: 'สมาชิกหมายเลข 6872113',
-        replies: 0,
-        views: 0,
-        timeAgo: '2024-06-28T15:41:45Z',
-      },
-      {
-        topic_id: 42810557,
-        title: 'ทำไมคนขายของในติกตอกรวยจัง',
-        author: 'สมาชิกหมายเลข 6872113',
-        replies: 0,
-        views: 0,
-        timeAgo: '2024-06-28T15:41:45Z',
-      },
-      {
-        topic_id: 42810557,
-        title: 'ทำไมคนขายของในติกตอกรวยจัง',
-        author: 'สมาชิกหมายเลข 6872113',
-        replies: 0,
-        views: 0,
-        timeAgo: '2024-06-28T15:41:45Z',
-      },
-      {
-        topic_id: 42810557,
-        title: 'ทำไมคนขายของในติกตอกรวยจัง',
-        author: 'สมาชิกหมายเลข 6872113',
-        replies: 0,
-        views: 0,
-        timeAgo: '2024-06-28T15:41:45Z',
-      },
-      {
-        topic_id: 42810557,
-        title: 'ทำไมคนขายของในติกตอกรวยจัง',
-        author: 'สมาชิกหมายเลข 6872113',
-        replies: 0,
-        views: 0,
-        timeAgo: '2024-06-28T15:41:45Z',
-      },
-    ];
+interface Tag {
+  slug: string;
+  name: string;
+}
 
-    dispatch(setTopics(fetchedTopics));
-  }, [dispatch]);
+interface Author {
+  name: string;
+}
+
+interface Topic {
+  topic_id: string;
+  title: string;
+  author: Author;
+  views_count: number;
+  comments_count: number;
+  tags: Tag[];
+}
+
+interface ForumData {
+  room_name_th: string;
+  topics: Topic[];
+}
+
+interface ForumTopicsProps {
+  data: ForumData;
+}
+
+const ForumTopics: React.FC<ForumTopicsProps> = ({ data }) => {
+  const [expandedView, setExpandedView] = useState<boolean>(false);
+  const [visibleTopics, setVisibleTopics] = useState<Topic[]>([]);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerHeight, setContainerHeight] = useState<string>('auto');
 
   useEffect(() => {
-    const updateVisibleTopics = () => {
-      if (typeof window !== 'undefined') {
-        const maxTopics = window.innerWidth < 768 ? 4 : 10;
-        setVisibleTopics(topics.slice(0, maxTopics));
-        setShowMore(topics.length > maxTopics);
-      }
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
     };
 
-    updateVisibleTopics();
-    if (typeof window !== 'undefined') {
-      window.addEventListener('resize', updateVisibleTopics);
-      return () => window.removeEventListener('resize', updateVisibleTopics);
-    }
-  }, [topics]);
-  
-  const handleShowMore = () => {
-    setVisibleTopics(topics);
-    setShowMore(false);
-  };
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
 
-  const handleShowLess = () => {
-    setVisibleTopics(window.innerWidth < 768 ? topics.slice(0, 4) : topics.slice(0, 10));
-    setShowMore(true);
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, []);
+
+  useEffect(() => {
+    const initialTopicsCount = isMobile ? 4 : 10;
+    setVisibleTopics(data.topics.slice(0, initialTopicsCount));
+  }, [data.topics, isMobile]);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const height = expandedView ? `${containerRef.current.scrollHeight}px` : '800px';
+      setContainerHeight(height);
+    }
+  }, [expandedView, visibleTopics]);
+
+  const handleToggleView = () => {
+    if (expandedView) {
+      const initialTopicsCount = isMobile ? 4 : 10;
+      setVisibleTopics(data.topics.slice(0, initialTopicsCount));
+      containerRef.current?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      setVisibleTopics(data.topics);
+    }
+    setExpandedView(!expandedView);
   };
 
   return (
-    <div className="flex items-center justify-center bg-[#53507c] p-8 sm:p-12 lg:p-16">
-      <div className="relative w-full max-w-5xl bg-white rounded-lg p-6 sm:p-8 shadow-lg">
-        <h2 className="text-lg sm:text-xl font-bold mb-4 text-center text-gray-800">Forum Topics</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {visibleTopics.map((topic) => (
-            <a href={`https://pantip.com/topic/${topic.topic_id}`} key={topic.topic_id} target="_blank" rel="noopener noreferrer" className="flex flex-col p-4 bg-gray-50 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
-              <h3 className="text-md sm:text-lg font-bold text-gray-800">{topic.title}</h3>
-              <p className="text-sm text-gray-600">by {topic.author}</p>
-              <div className="flex justify-between text-sm text-gray-600 mt-2">
-                <span>{topic.replies} replies</span>
-                <span>{topic.views} views</span>
-              </div>
-              <span className="text-xs text-gray-400 mt-1">{new Date(topic.timeAgo).toLocaleString()}</span>
-            </a>
-          ))}
+    <div className="w-full bg-[#53507c]">
+      <div className="container mx-auto px-4 py-8">
+        <h2 className="text-2xl font-bold mb-4 text-white">{data.room_name_th}</h2>
+        <div 
+          ref={containerRef}
+          className="expanding-container overflow-hidden transition-[height] duration-500 ease-in-out"
+          style={{ height: containerHeight }}
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {visibleTopics.map((topic) => (
+              <a href={`https://pantip.com/topic/${topic.topic_id}`} key={topic.topic_id} className="bg-white p-4 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+                <h3 className="text-lg font-semibold mb-2 text-[#53507c]">{topic.title}</h3>
+                <p className="text-sm text-gray-600 mb-2">
+                  โดย: {topic.author.name} | จำนวนผู้เข้าชม: {topic.views_count} | ความคิดเห็น: {topic.comments_count}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {topic.tags.map((tag) => (
+                    <span key={tag.slug} className="bg-gray-200 px-2 py-1 rounded-full text-xs">
+                      {tag.name}
+                    </span>
+                  ))}
+                </div>
+              </a>
+            ))}
+          </div>
         </div>
         <div className="text-center mt-6">
-          {topics.length > (window.innerWidth < 768 ? 4 : 10) && showMore && (
-            <button
-              className="px-4 py-2 bg-[#53507c] text-white rounded-lg hover:bg-[#41405d] transition-colors duration-300"
-              onClick={handleShowMore}
-            >
-              ดูเพิ่มเติม
-            </button>
-          )}
-          {!showMore && (
-            <button
-              className="px-4 py-2 bg-[#53507c] text-white rounded-lg hover:bg-[#41405d] transition-colors duration-300"
-              onClick={handleShowLess}
-            >
-              ดูน้อยลง
-            </button>
-          )}
+          <button
+            className="px-4 py-2 bg-white text-[#53507c] rounded-lg hover:bg-gray-100 transition-colors duration-300"
+            onClick={handleToggleView}
+          >
+            {expandedView ? 'แสดงน้อยลง' : 'แสดงเพิ่มเติม'}
+          </button>
         </div>
       </div>
     </div>

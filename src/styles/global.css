@@ -2,3 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+.expanding-container {
+  overflow: hidden;
+  transition: height 0.5s ease-in-out;
+}

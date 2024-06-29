@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import CategoryBar from '../../../components/CategoryBar';
 import Highlight from '../../../components/Highlight';
 import ForumTopics from '../../../components/ForumTopics';
+import forumData from './api/room/room_topic'
 
 export async function generateMetadata(props: { params: { locale: string } }) {
   const t = await getTranslations({
@@ -20,7 +21,9 @@ export default function Index() {
     <>
       <CategoryBar/>
       <Highlight/>
-      <ForumTopics/>
+      <ForumTopics data={forumData.data[0]} />
+      <ForumTopics data={forumData.data[0]} />
+      <ForumTopics data={forumData.data[0]} />
     </>
   );
 }
