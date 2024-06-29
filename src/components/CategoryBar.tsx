@@ -1,10 +1,6 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
-import { LucideIcon, ChevronLeft, ChevronRight } from "lucide-react";
-
-// Import icons
-import {
-  Utensils,
+import { LucideIcon, ChevronLeft, ChevronRight, Utensils,
   Map,
   MessageCircle,
   Camera,
@@ -15,8 +11,7 @@ import {
   Car,
   Activity,
   Briefcase,
-  Smartphone,
-} from "lucide-react";
+  Smartphone, } from "lucide-react";
 
 // Define the Category type
 type Category = {
