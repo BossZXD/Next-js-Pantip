@@ -22,6 +22,8 @@ const topicsSlice = createSlice({
   initialState,
   reducers: {
     setTopics: (state, action: PayloadAction<Topic[]>) => {
+      // Disable the rule for specific lines
+      // eslint-disable-next-line no-param-reassign
       state.topics = action.payload;
     },
   },

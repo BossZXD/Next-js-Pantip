@@ -21,6 +21,8 @@ const highlightSlice = createSlice({
   initialState,
   reducers: {
     setHighlights(state, action: PayloadAction<HighlightState["highlights"]>) {
+      // Disable the rule for specific lines
+      // eslint-disable-next-line no-param-reassign
       state.highlights = action.payload;
     },
   },

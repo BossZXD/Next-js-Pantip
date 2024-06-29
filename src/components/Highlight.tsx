@@ -116,13 +116,13 @@ const Highlight: React.FC = () => {
           Highlight
         </h2>
         <div className="relative flex justify-center px-2">
-          <button
+          <button type="button" aria-label="left"
             onClick={() => scroll(scrollRef, "left")}
             className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-1 shadow-md z-10"
           >
             <ChevronLeft size={24} className="text-gray-600" />
           </button>
-          <button
+          <button type="button" aria-label="right"
             onClick={() => scroll(scrollRef, "right")}
             className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-1 shadow-md z-10"
           >

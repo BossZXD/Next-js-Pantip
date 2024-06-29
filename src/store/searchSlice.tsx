@@ -14,6 +14,8 @@ const searchSlice = createSlice({
   initialState,
   reducers: {
     setSearchQuery: (state, action: PayloadAction<string>) => {
+      // Disable the rule for specific lines
+      // eslint-disable-next-line no-param-reassign
       state.query = action.payload;
     },
   },
