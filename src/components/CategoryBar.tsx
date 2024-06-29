@@ -581,7 +581,7 @@ const CategoryBar: React.FC = () => {
   return (
     <div className="relative bg-[#53507c] shadow-md p-4 flex justify-center">
       {showLeftArrow && (
-        <button
+        <button type="button" aria-label="left"
           onClick={() => scroll("left")}
           className="absolute left-2 top-1/3 transform -translate-y-1/2 bg-white rounded-full p-1 shadow-md z-10"
         >
@@ -589,7 +589,7 @@ const CategoryBar: React.FC = () => {
         </button>
       )}
       {showRightArrow && (
-        <button
+        <button type="button" aria-label="right"
           onClick={() => scroll("right")}
           className="absolute right-2  top-1/3  transform -translate-y-1/2 bg-white rounded-full p-1 shadow-md z-10"
         >
