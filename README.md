@@ -268,13 +268,13 @@ npm run test:e2e
 The App Router folder is compatible with the Edge runtime. You can enable it by adding the following lines `src/app/layouts.tsx`:
 
 ```tsx
-export const runtime = 'edge';
+export const runtime = "edge";
 ```
 
 For your information, the database migration is not compatible with the Edge runtime. So, you need to disable the automatic migration in `src/libs/DB.ts`:
 
 ```tsx
-await migrate(db, { migrationsFolder: './migrations' });
+await migrate(db, { migrationsFolder: "./migrations" });
 ```
 
 After disabling it, you are required to run the migration manually with:

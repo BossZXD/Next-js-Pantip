@@ -10,7 +10,7 @@
     "build-stats": "cross-env ANALYZE=true npm run build",
     "clean": "rimraf .next .swc out coverage",
     "lint": "next lint",
-    "format": "next lint --fix && prettier '**/*.{json,yaml}' --write --ignore-path .gitignore",
+    "format": "next lint --fix && prettier '**/*.{json,yaml}' --write --ignore-path .gitignore prettier --write .",
     "check-types": "tsc --noEmit --pretty",
     "test": "vitest run",
     "commit": "cz",
@@ -23,7 +23,8 @@
     "storybook:serve": "http-server storybook-static --port 6006 --silent",
     "serve-storybook": "run-s storybook:*",
     "test-storybook:ci": "start-server-and-test serve-storybook http://127.0.0.1:6006 test-storybook",
-    "prepare": "husky"
+    "prepare": "husky",
+    "prebuild": "npm run format"
   },
   "dependencies": {
     "@clerk/localizations": "^2.4.6",

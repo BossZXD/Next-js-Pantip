@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { NextIntlClientProvider } from 'next-intl';
-import { ReduxProvider } from './ReduxProvider';
+import { NextIntlClientProvider } from "next-intl";
+import { ReduxProvider } from "./ReduxProvider";
 
 export default function ClientProviders({
   children,
   messages,
-  locale
+  locale,
 }: {
   children: React.ReactNode;
   messages: any;

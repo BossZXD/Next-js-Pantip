@@ -1,6 +1,6 @@
-import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import searchReducer from './searchSlice';
-import topicsReducer from './topicsSlice';
+import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import searchReducer from "./searchSlice";
+import topicsReducer from "./topicsSlice";
 
 interface HighlightState {
   highlights: Array<{
@@ -17,10 +17,10 @@ const initialState: HighlightState = {
 };
 
 const highlightSlice = createSlice({
-  name: 'highlight',
+  name: "highlight",
   initialState,
   reducers: {
-    setHighlights(state, action: PayloadAction<HighlightState['highlights']>) {
+    setHighlights(state, action: PayloadAction<HighlightState["highlights"]>) {
       state.highlights = action.payload;
     },
   },

@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Topic {
   id: number;
@@ -18,7 +18,7 @@ const initialState: TopicsState = {
 };
 
 const topicsSlice = createSlice({
-  name: 'topics',
+  name: "topics",
   initialState,
   reducers: {
     setTopics: (state, action: PayloadAction<Topic[]>) => {

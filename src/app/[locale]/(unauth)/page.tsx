@@ -1,18 +1,18 @@
-import { getTranslations } from 'next-intl/server';
-import CategoryBar from '../../../components/CategoryBar';
-import Highlight from '../../../components/Highlight';
-import ForumTopics from '../../../components/ForumTopics';
-import forumData from './api/room/room_topic';
+import { getTranslations } from "next-intl/server";
+import CategoryBar from "../../../components/CategoryBar";
+import Highlight from "../../../components/Highlight";
+import ForumTopics from "../../../components/ForumTopics";
+import forumData from "./api/room/room_topic";
 
 export async function generateMetadata(props: { params: { locale: string } }) {
   const t = await getTranslations({
     locale: props.params.locale,
-    namespace: 'Index',
+    namespace: "Index",
   });
 
   return {
-    title: t('meta_title'),
-    description: t('meta_description'),
+    title: t("meta_title"),
+    description: t("meta_description"),
   };
 }
 

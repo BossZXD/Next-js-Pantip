@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 
 interface Topic {
   topic_id: number;
@@ -32,7 +32,7 @@ const ForumTopics: React.FC<ForumTopicsProps> = ({ data }) => {
   const [visibleTopics, setVisibleTopics] = useState<Topic[]>([]);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [containerHeight, setContainerHeight] = useState<string>('auto');
+  const [containerHeight, setContainerHeight] = useState<string>("auto");
 
   useEffect(() => {
     const checkIsMobile = () => {
@@ -40,10 +40,10 @@ const ForumTopics: React.FC<ForumTopicsProps> = ({ data }) => {
     };
 
     checkIsMobile();
-    window.addEventListener('resize', checkIsMobile);
+    window.addEventListener("resize", checkIsMobile);
 
     return () => {
-      window.removeEventListener('resize', checkIsMobile);
+      window.removeEventListener("resize", checkIsMobile);
     };
   }, []);
 
@@ -54,7 +54,9 @@ const ForumTopics: React.FC<ForumTopicsProps> = ({ data }) => {
 
   useEffect(() => {
     if (containerRef.current) {
-      const height = expandedView ? `${containerRef.current.scrollHeight}px` : '800px';
+      const height = expandedView
+        ? `${containerRef.current.scrollHeight}px`
+        : "800px";
       setContainerHeight(height);
     }
   }, [expandedView, visibleTopics]);
@@ -63,7 +65,7 @@ const ForumTopics: React.FC<ForumTopicsProps> = ({ data }) => {
     if (expandedView) {
       const initialTopicsCount = isMobile ? 4 : 10;
       setVisibleTopics(data.topics.slice(0, initialTopicsCount));
-      containerRef.current?.scrollIntoView({ behavior: 'smooth' });
+      containerRef.current?.scrollIntoView({ behavior: "smooth" });
     } else {
       setVisibleTopics(data.topics);
     }
@@ -73,22 +75,34 @@ const ForumTopics: React.FC<ForumTopicsProps> = ({ data }) => {
   return (
     <div className="w-full bg-[#53507c]">
       <div className="container mx-auto px-4 py-8">
-        <h2 className="text-2xl font-bold mb-4 text-white">{data.room_name_th}</h2>
-        <div 
+        <h2 className="text-2xl font-bold mb-4 text-white">
+          {data.room_name_th}
+        </h2>
+        <div
           ref={containerRef}
           className="expanding-container overflow-hidden transition-[height] duration-500 ease-in-out"
           style={{ height: containerHeight }}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {visibleTopics.map((topic) => (
-              <a href={`https://pantip.com/topic/${topic.topic_id}`} key={topic.topic_id} className="bg-white p-4 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
-                <h3 className="text-lg font-semibold mb-2 text-[#53507c]">{topic.title}</h3>
+              <a
+                href={`https://pantip.com/topic/${topic.topic_id}`}
+                key={topic.topic_id}
+                className="bg-white p-4 rounded-lg shadow hover:shadow-lg transition-shadow duration-300"
+              >
+                <h3 className="text-lg font-semibold mb-2 text-[#53507c]">
+                  {topic.title}
+                </h3>
                 <p className="text-sm text-gray-600 mb-2">
-                  โดย: {topic.author.name} | จำนวนผู้เข้าชม: {topic.views_count} | ความคิดเห็น: {topic.comments_count}
+                  โดย: {topic.author.name} | จำนวนผู้เข้าชม: {topic.views_count}{" "}
+                  | ความคิดเห็น: {topic.comments_count}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {topic.tags.map((tag) => (
-                    <span key={tag.slug} className="bg-gray-200 px-2 py-1 rounded-full text-xs">
+                    <span
+                      key={tag.slug}
+                      className="bg-gray-200 px-2 py-1 rounded-full text-xs"
+                    >
                       {tag.name}
                     </span>
                   ))}
@@ -102,7 +116,7 @@ const ForumTopics: React.FC<ForumTopicsProps> = ({ data }) => {
             className="px-4 py-2 bg-white text-[#53507c] rounded-lg hover:bg-gray-100 transition-colors duration-300"
             onClick={handleToggleView}
           >
-            {expandedView ? 'แสดงน้อยลง' : 'แสดงเพิ่มเติม'}
+            {expandedView ? "แสดงน้อยลง" : "แสดงเพิ่มเติม"}
           </button>
         </div>
       </div>
