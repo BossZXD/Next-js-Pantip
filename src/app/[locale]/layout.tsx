@@ -1,12 +1,12 @@
-import "@/styles/global.css";
+import '@/styles/global.css';
 
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { useMessages } from "next-intl";
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { useMessages } from 'next-intl';
 
-import { AppConfig } from "@/utils/AppConfig";
+import { AppConfig } from '@/utils/AppConfig';
 
-import ClientProviders from "../ClientProviders";
+import ClientProviders from '../ClientProviders';
 
 export const metadata: Metadata = {};
 

@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { Search } from "lucide-react";
-import Image from "next/image";
-import React from "react";
-import type { TypedUseSelectorHook } from "react-redux";
-import { useDispatch, useSelector } from "react-redux";
+import { Search } from 'lucide-react';
+import Image from 'next/image';
+import React from 'react';
+import type { TypedUseSelectorHook } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { setSearchQuery } from "../store/searchSlice";
-import type { AppDispatch, RootState } from "../store/store";
+import { setSearchQuery } from '../store/searchSlice';
+import type { AppDispatch, RootState } from '../store/store';
 
 const useAppDispatch: () => AppDispatch = useDispatch;
 const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

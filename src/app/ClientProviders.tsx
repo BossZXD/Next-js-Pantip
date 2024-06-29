@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { NextIntlClientProvider } from "next-intl";
+import { NextIntlClientProvider } from 'next-intl';
 
-import { ReduxProvider } from "./ReduxProvider";
+import { ReduxProvider } from './ReduxProvider';
 
 export default function ClientProviders({
   children,

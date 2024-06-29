@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 
 interface Topic {
   topic_id: number;
@@ -32,7 +32,7 @@ const ForumTopics: React.FC<ForumTopicsProps> = ({ data }) => {
   const [visibleTopics, setVisibleTopics] = useState<Topic[]>([]);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [containerHeight, setContainerHeight] = useState<string>("auto");
+  const [containerHeight, setContainerHeight] = useState<string>('auto');
 
   useEffect(() => {
     const checkIsMobile = () => {
@@ -40,10 +40,10 @@ const ForumTopics: React.FC<ForumTopicsProps> = ({ data }) => {
     };
 
     checkIsMobile();
-    window.addEventListener("resize", checkIsMobile);
+    window.addEventListener('resize', checkIsMobile);
 
     return () => {
-      window.removeEventListener("resize", checkIsMobile);
+      window.removeEventListener('resize', checkIsMobile);
     };
   }, []);
 
@@ -56,7 +56,7 @@ const ForumTopics: React.FC<ForumTopicsProps> = ({ data }) => {
     if (containerRef.current) {
       const height = expandedView
         ? `${containerRef.current.scrollHeight}px`
-        : "800px";
+        : '800px';
       setContainerHeight(height);
     }
   }, [expandedView, visibleTopics]);
@@ -65,7 +65,7 @@ const ForumTopics: React.FC<ForumTopicsProps> = ({ data }) => {
     if (expandedView) {
       const initialTopicsCount = isMobile ? 4 : 10;
       setVisibleTopics(data.topics.slice(0, initialTopicsCount));
-      containerRef.current?.scrollIntoView({ behavior: "smooth" });
+      containerRef.current?.scrollIntoView({ behavior: 'smooth' });
     } else {
       setVisibleTopics(data.topics);
     }
@@ -94,7 +94,7 @@ const ForumTopics: React.FC<ForumTopicsProps> = ({ data }) => {
                   {topic.title}
                 </h3>
                 <p className="mb-2 text-sm text-gray-600">
-                  โดย: {topic.author.name} | จำนวนผู้เข้าชม: {topic.views_count}{" "}
+                  โดย: {topic.author.name} | จำนวนผู้เข้าชม: {topic.views_count}{' '}
                   | ความคิดเห็น: {topic.comments_count}
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -118,7 +118,7 @@ const ForumTopics: React.FC<ForumTopicsProps> = ({ data }) => {
             className="rounded-lg bg-white px-4 py-2 text-[#53507c] transition-colors duration-300 hover:bg-gray-100"
             onClick={handleToggleView}
           >
-            {expandedView ? "แสดงน้อยลง" : "แสดงเพิ่มเติม"}
+            {expandedView ? 'แสดงน้อยลง' : 'แสดงเพิ่มเติม'}
           </button>
         </div>
       </div>

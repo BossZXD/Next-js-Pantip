@@ -1,8 +1,8 @@
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { configureStore, createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-import searchReducer from "./searchSlice";
-import topicsReducer from "./topicsSlice";
+import searchReducer from './searchSlice';
+import topicsReducer from './topicsSlice';
 
 interface HighlightState {
   highlights: Array<{
@@ -19,10 +19,10 @@ const initialState: HighlightState = {
 };
 
 const highlightSlice = createSlice({
-  name: "highlight",
+  name: 'highlight',
   initialState,
   reducers: {
-    setHighlights(state, action: PayloadAction<HighlightState["highlights"]>) {
+    setHighlights(state, action: PayloadAction<HighlightState['highlights']>) {
       // Disable the rule for specific lines
       // eslint-disable-next-line no-param-reassign
       state.highlights = action.payload;
