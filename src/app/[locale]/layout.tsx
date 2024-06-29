@@ -1,9 +1,9 @@
 import '@/styles/global.css';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { NextIntlClientProvider, useMessages } from 'next-intl';
 import { AppConfig } from '@/utils/AppConfig';
 import ClientProviders from '../ClientProviders';
+import { useMessages } from 'next-intl';
 
 
 export const metadata: Metadata = {

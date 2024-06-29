@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import CategoryBar from '../../../components/CategoryBar';
 import Highlight from '../../../components/Highlight';
 import ForumTopics from '../../../components/ForumTopics';
-import forumData from './api/room/room_topic'
+import forumData from './api/room/room_topic';
 
 export async function generateMetadata(props: { params: { locale: string } }) {
   const t = await getTranslations({
@@ -17,13 +17,19 @@ export async function generateMetadata(props: { params: { locale: string } }) {
 }
 
 export default function Index() {
+  const firstForumData = forumData.data[0];
+
+  if (!firstForumData) {
+    return <div>No forum data available</div>;
+  }
+
   return (
     <>
-      <CategoryBar/>
-      <Highlight/>
-      <ForumTopics data={forumData.data[0]} />
-      <ForumTopics data={forumData.data[0]} />
-      <ForumTopics data={forumData.data[0]} />
+      <CategoryBar />
+      <Highlight />
+      <ForumTopics data={firstForumData} />
+      <ForumTopics data={firstForumData} />
+      <ForumTopics data={firstForumData} />
     </>
   );
 }

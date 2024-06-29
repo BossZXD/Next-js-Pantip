@@ -2,33 +2,31 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 
-interface Tag {
-  slug: string;
-  name: string;
-}
-
-interface Author {
-  name: string;
-}
-
 interface Topic {
-  topic_id: string;
+  topic_id: number;
+  topic_type: number;
   title: string;
-  author: Author;
+  thumbnail_url: string | null;
   views_count: number;
   comments_count: number;
-  tags: Tag[];
+  author: {
+    name: string;
+  };
+  tags: { slug: string; name: string }[];
+  category: string;
 }
 
 interface ForumData {
+  room_id: number;
   room_name_th: string;
+  room_name_en: string;
+  type: string;
   topics: Topic[];
 }
 
 interface ForumTopicsProps {
   data: ForumData;
 }
-
 const ForumTopics: React.FC<ForumTopicsProps> = ({ data }) => {
   const [expandedView, setExpandedView] = useState<boolean>(false);
   const [visibleTopics, setVisibleTopics] = useState<Topic[]>([]);
