@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface Topic {
   topic_id: number;
@@ -75,7 +75,7 @@ const ForumTopics: React.FC<ForumTopicsProps> = ({ data }) => {
   return (
     <div className="w-full bg-[#53507c]">
       <div className="container mx-auto px-4 py-8">
-        <h2 className="text-2xl font-bold mb-4 text-white">
+        <h2 className="mb-4 text-2xl font-bold text-white">
           {data.room_name_th}
         </h2>
         <div
@@ -83,17 +83,17 @@ const ForumTopics: React.FC<ForumTopicsProps> = ({ data }) => {
           className="expanding-container overflow-hidden transition-[height] duration-500 ease-in-out"
           style={{ height: containerHeight }}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {visibleTopics.map((topic) => (
               <a
                 href={`https://pantip.com/topic/${topic.topic_id}`}
                 key={topic.topic_id}
-                className="bg-white p-4 rounded-lg shadow hover:shadow-lg transition-shadow duration-300"
+                className="rounded-lg bg-white p-4 shadow transition-shadow duration-300 hover:shadow-lg"
               >
-                <h3 className="text-lg font-semibold mb-2 text-[#53507c]">
+                <h3 className="mb-2 text-lg font-semibold text-[#53507c]">
                   {topic.title}
                 </h3>
-                <p className="text-sm text-gray-600 mb-2">
+                <p className="mb-2 text-sm text-gray-600">
                   โดย: {topic.author.name} | จำนวนผู้เข้าชม: {topic.views_count}{" "}
                   | ความคิดเห็น: {topic.comments_count}
                 </p>
@@ -101,7 +101,7 @@ const ForumTopics: React.FC<ForumTopicsProps> = ({ data }) => {
                   {topic.tags.map((tag) => (
                     <span
                       key={tag.slug}
-                      className="bg-gray-200 px-2 py-1 rounded-full text-xs"
+                      className="rounded-full bg-gray-200 px-2 py-1 text-xs"
                     >
                       {tag.name}
                     </span>
@@ -111,9 +111,11 @@ const ForumTopics: React.FC<ForumTopicsProps> = ({ data }) => {
             ))}
           </div>
         </div>
-        <div className="text-center mt-6">
-          <button type="button" aria-label="show"
-            className="px-4 py-2 bg-white text-[#53507c] rounded-lg hover:bg-gray-100 transition-colors duration-300"
+        <div className="mt-6 text-center">
+          <button
+            type="button"
+            aria-label="show"
+            className="rounded-lg bg-white px-4 py-2 text-[#53507c] transition-colors duration-300 hover:bg-gray-100"
             onClick={handleToggleView}
           >
             {expandedView ? "แสดงน้อยลง" : "แสดงเพิ่มเติม"}

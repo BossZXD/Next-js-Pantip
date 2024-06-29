@@ -1,7 +1,8 @@
 import { getTranslations } from "next-intl/server";
+
 import CategoryBar from "../../../components/CategoryBar";
-import Highlight from "../../../components/Highlight";
 import ForumTopics from "../../../components/ForumTopics";
+import Highlight from "../../../components/Highlight";
 import forumData from "./api/room/room_topic";
 
 export async function generateMetadata(props: { params: { locale: string } }) {

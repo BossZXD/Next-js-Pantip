@@ -1,9 +1,12 @@
 import "@/styles/global.css";
+
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { AppConfig } from "@/utils/AppConfig";
-import ClientProviders from "../ClientProviders";
 import { useMessages } from "next-intl";
+
+import { AppConfig } from "@/utils/AppConfig";
+
+import ClientProviders from "../ClientProviders";
 
 export const metadata: Metadata = {};
 

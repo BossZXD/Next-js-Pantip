@@ -1,4 +1,6 @@
-import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { configureStore, createSlice } from "@reduxjs/toolkit";
+
 import searchReducer from "./searchSlice";
 import topicsReducer from "./topicsSlice";
 

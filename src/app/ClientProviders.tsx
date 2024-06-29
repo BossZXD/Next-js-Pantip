@@ -1,6 +1,7 @@
 "use client";
 
 import { NextIntlClientProvider } from "next-intl";
+
 import { ReduxProvider } from "./ReduxProvider";
 
 export default function ClientProviders({

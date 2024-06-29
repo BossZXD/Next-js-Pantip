@@ -1,9 +1,12 @@
 "use client";
-import React, { useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch, setHighlights } from "../store/store";
+
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import React, { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { scroll } from "../hooks/scroll";
+import type { AppDispatch, RootState } from "../store/store";
+import { setHighlights } from "../store/store";
 
 interface JsonDataItem {
   name: string;
@@ -110,27 +113,31 @@ const Highlight: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex items-center justify-center bg-[#53507c] text-white p-8 md:p-12 lg:p-16">
+    <div className="flex items-center justify-center bg-[#53507c] p-8 text-white md:p-12 lg:p-16">
       <div className="relative w-full max-w-5xl">
-        <h2 className="text-lg md:text-xl font-bold mb-4 text-center py-2">
+        <h2 className="mb-4 py-2 text-center text-lg font-bold md:text-xl">
           Highlight
         </h2>
         <div className="relative flex justify-center px-2">
-          <button type="button" aria-label="left"
+          <button
+            type="button"
+            aria-label="left"
             onClick={() => scroll(scrollRef, "left")}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-1 shadow-md z-10"
+            className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white p-1 shadow-md"
           >
             <ChevronLeft size={24} className="text-gray-600" />
           </button>
-          <button type="button" aria-label="right"
+          <button
+            type="button"
+            aria-label="right"
             onClick={() => scroll(scrollRef, "right")}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-1 shadow-md z-10"
+            className="absolute right-0 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white p-1 shadow-md"
           >
             <ChevronRight size={24} className="text-gray-600" />
           </button>
           <div
             ref={scrollRef}
-            className="flex overflow-hidden space-x-4 md:space-x-8 lg:space-x-4 justify-start"
+            className="flex justify-start space-x-4 overflow-hidden md:space-x-8 lg:space-x-4"
           >
             {highlightState.map((highlight) => (
               <a
@@ -138,17 +145,17 @@ const Highlight: React.FC = () => {
                 href={highlight.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-start space-y-2 flex-shrink-0 w-64 sm:w-72 md:w-80 bg-gray-800 rounded-lg p-4 hover:bg-gray-700 transition duration-300"
+                className="flex w-64 shrink-0 flex-col items-start space-y-2 rounded-lg bg-gray-800 p-4 transition duration-300 hover:bg-gray-700 sm:w-72 md:w-80"
               >
                 <img
                   src={highlight.image}
                   alt={highlight.title}
-                  className="w-full h-40 sm:h-48 md:h-56 object-cover rounded-lg"
+                  className="h-40 w-full rounded-lg object-cover sm:h-48 md:h-56"
                 />
-                <h3 className="text-sm md:text-md font-bold text-center overflow-hidden text-ellipsis w-full">
+                <h3 className="md:text-md w-full overflow-hidden text-ellipsis text-center text-sm font-bold">
                   {highlight.title}
                 </h3>
-                <p className="text-xs md:text-sm text-center overflow-hidden text-ellipsis w-full">
+                <p className="w-full overflow-hidden text-ellipsis text-center text-xs md:text-sm">
                   {highlight.description}
                 </p>
               </a>

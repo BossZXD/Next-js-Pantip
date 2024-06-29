@@ -1,17 +1,23 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
-import { LucideIcon, ChevronLeft, ChevronRight, Utensils,
-  Map,
-  MessageCircle,
-  Camera,
-  Film,
-  ShoppingBag,
-  Heart,
-  Home,
-  Car,
+
+import type { LucideIcon } from "lucide-react";
+import {
   Activity,
   Briefcase,
-  Smartphone, } from "lucide-react";
+  Camera,
+  Car,
+  ChevronLeft,
+  ChevronRight,
+  Film,
+  Heart,
+  Home,
+  Map,
+  MessageCircle,
+  ShoppingBag,
+  Smartphone,
+  Utensils,
+} from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
 
 // Define the Category type
 type Category = {
@@ -579,19 +585,23 @@ const CategoryBar: React.FC = () => {
   };
 
   return (
-    <div className="relative bg-[#53507c] shadow-md p-4 flex justify-center">
+    <div className="relative flex justify-center bg-[#53507c] p-4 shadow-md">
       {showLeftArrow && (
-        <button type="button" aria-label="left"
+        <button
+          type="button"
+          aria-label="left"
           onClick={() => scroll("left")}
-          className="absolute left-2 top-1/3 transform -translate-y-1/2 bg-white rounded-full p-1 shadow-md z-10"
+          className="absolute left-2 top-1/3 z-10 -translate-y-1/2 rounded-full bg-white p-1 shadow-md"
         >
           <ChevronLeft size={24} className="text-gray-600" />
         </button>
       )}
       {showRightArrow && (
-        <button type="button" aria-label="right"
+        <button
+          type="button"
+          aria-label="right"
           onClick={() => scroll("right")}
-          className="absolute right-2  top-1/3  transform -translate-y-1/2 bg-white rounded-full p-1 shadow-md z-10"
+          className="absolute right-2  top-1/3  z-10 -translate-y-1/2 rounded-full bg-white p-1 shadow-md"
         >
           <ChevronRight size={24} className="text-gray-600" />
         </button>
@@ -613,9 +623,9 @@ const CategoryBar: React.FC = () => {
             href={category.link_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex flex-col items-center space-y-2 flex-shrink-0"
+            className="flex shrink-0 flex-col items-center space-y-2"
           >
-            <div className="w-12 h-12 bg-[#53507c] rounded-full flex items-center justify-center">
+            <div className="flex size-12 items-center justify-center rounded-full bg-[#53507c]">
               {category.icon ? (
                 <category.icon size={24} className="text-white" />
               ) : (
