@@ -2,8 +2,6 @@
 
 import { NextIntlClientProvider } from 'next-intl';
 
-import { ReduxProvider } from './ReduxProvider';
-
 export default function ClientProviders({
   children,
   messages,
@@ -14,10 +12,8 @@ export default function ClientProviders({
   locale: string;
 }) {
   return (
-    <ReduxProvider>
-      <NextIntlClientProvider locale={locale} messages={messages}>
-        {children}
-      </NextIntlClientProvider>
-    </ReduxProvider>
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      {children}
+    </NextIntlClientProvider>
   );
 }

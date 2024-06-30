@@ -70,15 +70,11 @@ const CategoryBar: React.FC = () => {
         type="button"
         aria-label="right"
         onClick={() => scroll('right')}
-        className="absolute right-0 top-1/2   z-10 ml-2 -translate-y-1/2 rounded-full bg-white p-1 shadow-md"
+        className="absolute right-0 top-1/2 z-10 ml-2 -translate-y-1/2 rounded-full bg-white p-1 shadow-md"
       >
         <ChevronRight size={24} className="text-gray-600" />
       </button>
-      <div
-        ref={scrollRef}
-        className="flex space-x-8 overflow-hidden"
-        onScroll={() => {}}
-      >
+      <div ref={scrollRef} className="flex space-x-8 overflow-hidden">
         {categories.map((category) => (
           <a
             key={category.id}
@@ -87,9 +83,13 @@ const CategoryBar: React.FC = () => {
             rel="noopener noreferrer"
             className="flex shrink-0 flex-col items-center space-y-2"
           >
-            <div className="flex size-12 items-center justify-center rounded-full bg-[#53507c]  shadow-xl">
+            <div className="flex size-12 items-center justify-center rounded-full bg-[#53507c] shadow-xl">
               {category.room_icon_url ? (
-                <img src={category.room_icon_url} className="text-white" />
+                <img
+                  src={category.room_icon_url}
+                  alt={category.name}
+                  className="size-12 rounded-full"
+                />
               ) : (
                 <span className="text-white">?</span>
               )}

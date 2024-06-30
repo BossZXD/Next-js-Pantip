@@ -1,8 +1,11 @@
 import { getTranslations } from 'next-intl/server';
 
-import CategoryBar from '../../../components/CategoryBar';
-import ForumTopics from '../../../components/ForumTopics';
-import Highlight from '../../../components/Highlight';
+import CategoryBar from '@/components/CategoryBar';
+import ForumTopics from '@/components/ForumTopics';
+import Highlight from '@/components/Highlight';
+import PantipClubsList from '@/components/List/Club/PantipClubsList';
+import PantipTagHit from '@/components/List/Tag/PantipTagHit';
+import PantipMarket from '@/components/PantipMarket';
 
 export async function generateMetadata(props: { params: { locale: string } }) {
   const t = await getTranslations({
@@ -21,7 +24,10 @@ export default function Index() {
     <div className="container mx-auto">
       <CategoryBar />
       <Highlight />
+      <PantipClubsList />
+      <PantipTagHit />
       <ForumTopics />
+      <PantipMarket />
     </div>
   );
 }
