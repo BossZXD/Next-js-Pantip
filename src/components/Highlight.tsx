@@ -1,19 +1,29 @@
-"use client";
+'use client';
 
-import React, { useEffect, useRef } from "react";
-import { getPantipHighlight } from "../app/[locale]/(unauth)/api/room/getPantipHighlight";
-import create from "zustand";
+import React, { useEffect } from 'react';
+import { create } from 'zustand';
+
+import { getPantipHighlight } from '../app/[locale]/(unauth)/api/room/getPantipHighlight';
+/* eslint no-underscore-dangle: 0 */
+interface ImageCardProps {
+  src: string;
+  alt: string;
+  title: string;
+  subtitle: string;
+  width?: number;
+  height?: number;
+}
 
 interface HighlightState {
   highlights: Array<{
-    _id: string;
+    _id?: string;
     name: string;
     message: string;
     weight: number;
     image_url: string[];
     post_url: string;
   }>;
-  setHighlights: (highlights: HighlightState["highlights"]) => void;
+  setHighlights: (highlights: HighlightState['highlights']) => void;
   fetchHighlights: () => Promise<void>;
 }
 
@@ -25,21 +35,28 @@ const useHighlightStore = create<HighlightState>((set) => ({
       const result = await getPantipHighlight();
       set({ highlights: result.data });
     } catch (error) {
-      console.error("Error fetching highlights:", error);
+      console.error('Error fetching highlights:', error);
     }
   },
 }));
 
-const ImageCard = ({ src, alt, title, subtitle }) => (
-  <div className="relative group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+const ImageCard: React.FC<ImageCardProps> = ({
+  src,
+  alt,
+  title,
+  subtitle,
+  width = 400,
+  height = 400,
+}) => (
+  <div className="group relative overflow-hidden rounded-lg shadow-md transition-shadow duration-300 hover:shadow-xl">
     <img
       src={src}
       alt={alt}
-      width={400}
-      height={400}
-      className="w-full h-48 object-cover"
+      width={width}
+      height={height}
+      className="h-48 w-full object-cover"
     />
-    <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2">
+    <div className="absolute inset-x-0 bottom-0 bg-black bg-opacity-50 p-2 text-white">
       <h3 className="text-sm font-semibold">{title}</h3>
       <p className="text-xs">{subtitle}</p>
     </div>
@@ -55,14 +72,14 @@ const Highlight: React.FC = () => {
 
   return (
     <div className="relative bg-[#53507c] p-4">
-      <div className="flex items-center justify-center pt-4 mb-4">
-        <h2 className="text-2xl font-bold text-white py-4">Highlights</h2>
+      <div className="mb-4 flex items-center justify-center pt-4">
+        <h2 className="py-4 text-2xl font-bold text-white">Highlights</h2>
       </div>
-      <div className="overflow-x-auto flex justify-center space-x-4 pb-4">
+      <div className="flex justify-center space-x-4 overflow-x-auto pb-4">
         {highlights.map((highlight) => (
           <ImageCard
             key={highlight._id}
-            src={highlight.image_url[0] || '/placeholder.jpg'}
+            src={highlight.image_url[0] || ''}
             alt={highlight.name}
             title={highlight.name}
             subtitle={highlight.message}

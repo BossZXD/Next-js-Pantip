@@ -1,5 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
+
 import searchReducer from './searchSlice';
 
 interface HighlightState {
@@ -34,7 +35,7 @@ export const { setHighlights } = highlightSlice.actions;
 export const store = configureStore({
   reducer: {
     search: searchReducer,
-    highlight: highlightSlice.reducer
+    highlight: highlightSlice.reducer,
   },
 });
 

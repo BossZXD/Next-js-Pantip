@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import { getPantipTopic } from "@/app/[locale]/(unauth)/api/room/getPantipTopic";
-import create from "zustand";
+import React, { useEffect } from 'react';
+import { create } from 'zustand';
+
+import { getPantipTopic } from '@/app/[locale]/(unauth)/api/room/getPantipTopic';
 
 interface TopicsState {
   Topics: {
@@ -28,9 +29,10 @@ interface TopicsState {
       }[];
       category?: string;
     }[];
+    tag_name?: string;
     type?: string;
   }[];
-  setTopic: (topics: TopicsState["Topics"]) => void;
+  setTopic: (topics: TopicsState['Topics']) => void;
   fetchTopic: () => Promise<void>;
 }
 
@@ -42,47 +44,17 @@ const useTopicStore = create<TopicsState>((set) => ({
       const result = await getPantipTopic();
       set({ Topics: result.data });
     } catch (error) {
-      console.error("Error fetching Topics:", error);
+      console.error('Error fetching Topics:', error);
     }
   },
 }));
 
 const ForumTopics: React.FC = () => {
   const { Topics, fetchTopic } = useTopicStore();
-  const [expandedViews, setExpandedViews] = useState<{ [key: number]: boolean }>({});
-  const [visibleTopics, setVisibleTopics] = useState<{ [key: number]: TopicsState["Topics"][0]["topics"] }>({});
 
   useEffect(() => {
     fetchTopic();
   }, [fetchTopic]);
-
-  useEffect(() => {
-    const initialTopicsCount = window.innerWidth < 768 ? 4 : 10;
-    const newVisibleTopics: { [key: number]: TopicsState["Topics"][0]["topics"] } = {};
-    Topics.forEach((topic, index) => {
-      newVisibleTopics[index] = topic.topics?.slice(0, initialTopicsCount) || [];
-    });
-    setVisibleTopics(newVisibleTopics);
-  }, [Topics]);
-
-  const handleToggleView = (index: number) => {
-    setExpandedViews(prev => {
-      const newExpandedViews = { ...prev };
-      newExpandedViews[index] = !prev[index];
-      return newExpandedViews;
-    });
-
-    setVisibleTopics(prev => {
-      const newVisibleTopics = { ...prev };
-      if (expandedViews[index]) {
-        const initialTopicsCount = window.innerWidth < 768 ? 4 : 10;
-        newVisibleTopics[index] = Topics[index].topics?.slice(0, initialTopicsCount) || [];
-      } else {
-        newVisibleTopics[index] = Topics[index].topics || [];
-      }
-      return newVisibleTopics;
-    });
-  };
 
   if (Topics.length === 0) {
     return <div>Loading...</div>;
@@ -91,14 +63,14 @@ const ForumTopics: React.FC = () => {
   return (
     <div className="w-full bg-[#53507c]">
       <div className="container mx-auto px-4 py-8">
-        {Topics.map((topic, index) => (
-          <div key={index} className="mb-8">
+        {Topics.map((topic) => (
+          <div key={topic.room_id} className="mb-8">
             <h2 className="mb-4 text-2xl font-bold text-white">
-              {topic.room_name_th != null ? topic.room_name_th : topic.tag_name ? topic.tag_name : ""}
+              {topic.room_name_th ?? topic.tag_name ?? ''}
             </h2>
             <div className="expanding-container overflow-hidden transition-[height] duration-500 ease-in-out">
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {visibleTopics[index]?.map((subTopic) => (
+                {topic.topics?.map((subTopic) => (
                   <a
                     href={`https://pantip.com/topic/${subTopic.topic_id}`}
                     key={subTopic.topic_id}
@@ -108,11 +80,16 @@ const ForumTopics: React.FC = () => {
                       {subTopic.title}
                     </h3>
                     <p className="mb-2 text-sm text-gray-600">
-                      โดย: {subTopic.author?.name} | จำนวนผู้เข้าชม: {subTopic.views_count} | ความคิดเห็น: {subTopic.comments_count}
+                      โดย: {subTopic.author?.name} | จำนวนผู้เข้าชม:{' '}
+                      {subTopic.views_count} | ความคิดเห็น:{' '}
+                      {subTopic.comments_count}
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {subTopic.tags?.map((tag) => (
-                        <span key={tag.slug} className="rounded-full bg-gray-200 px-2 py-1 text-xs">
+                        <span
+                          key={tag.slug}
+                          className="rounded-full bg-gray-200 px-2 py-1 text-xs"
+                        >
                           {tag.name}
                         </span>
                       ))}
@@ -122,8 +99,10 @@ const ForumTopics: React.FC = () => {
               </div>
             </div>
             <div className="mt-6 text-center">
-              <a href={`https://pantip.com/forum/${topic.room_name_en}`}
-                className="rounded-lg bg-white px-4 py-2 text-[#53507c] transition-colors duration-300 hover:bg-gray-100">
+              <a
+                href={`https://pantip.com/forum/${topic.room_name_en}`}
+                className="rounded-lg bg-white px-4 py-2 text-[#53507c] transition-colors duration-300 hover:bg-gray-100"
+              >
                 แสดงเพิ่มเติม
               </a>
             </div>

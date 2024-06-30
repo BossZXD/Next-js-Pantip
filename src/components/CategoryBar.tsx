@@ -1,22 +1,27 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
-import {ChevronLeft, ChevronRight} from 'lucide-react';
+
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { create } from 'zustand';
+
 import { getPantipCategories } from '@/app/[locale]/(unauth)/api/category/getCategory';
-import create from 'zustand';
+
+interface Category {
+  id: number;
+  name: string;
+  name_en: string;
+  description?: string;
+  is_pinned: boolean;
+  link_url: string;
+  order: number | null;
+  pinned_time: number | null;
+  room_icon_url: string;
+  slug: string;
+}
 
 interface CategoriesState {
-  categories: Array<{
-    id: string;
-    is_pinned: boolean;
-    link_url: string;
-    name: string;
-    name_en: string;
-    order: number;
-    pinned_time: Date;
-    room_icon_url: string;
-    slug: string;
-  }>;
-  setCategories: (categories: CategoriesState['categories']) => void;
+  categories: Category[];
+  setCategories: (categories: Category[]) => void;
   fetchCategories: () => Promise<void>;
 }
 
@@ -35,27 +40,11 @@ const useCategoriesStore = create<CategoriesState>((set) => ({
 
 const CategoryBar: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [showLeftArrow, setShowLeftArrow] = useState(false);
-  const [showRightArrow, setShowRightArrow] = useState(false);
-  const {categories, fetchCategories} = useCategoriesStore();
+  const { categories, fetchCategories } = useCategoriesStore();
 
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
-
-  useEffect(() => {
-    const checkScroll = () => {
-      if (scrollRef.current) {
-        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-        setShowLeftArrow(scrollLeft > 0);
-        setShowRightArrow(scrollLeft < scrollWidth - clientWidth);
-      }
-    };
-
-    checkScroll();
-    window.addEventListener('resize', checkScroll);
-    return () => window.removeEventListener('resize', checkScroll);
-  }, []);
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
@@ -69,32 +58,26 @@ const CategoryBar: React.FC = () => {
 
   return (
     <div className="relative flex justify-center bg-[#53507c] p-4">
-        <button
-          type="button"
-          aria-label="left"
-          onClick={() => scroll('left')}
-          className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white p-1 shadow-md"
-        >
-          <ChevronLeft size={24} className="text-gray-600" />
-        </button>
-        <button
-          type="button"
-          aria-label="right"
-          onClick={() => scroll('right')}
-          className="absolute right-0 top-1/2   z-10 -translate-y-1/2 rounded-full bg-white p-1 ml-2 shadow-md"
-        >
-          <ChevronRight size={24} className="text-gray-600" />
-        </button>
+      <button
+        type="button"
+        aria-label="left"
+        onClick={() => scroll('left')}
+        className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white p-1 shadow-md"
+      >
+        <ChevronLeft size={24} className="text-gray-600" />
+      </button>
+      <button
+        type="button"
+        aria-label="right"
+        onClick={() => scroll('right')}
+        className="absolute right-0 top-1/2   z-10 ml-2 -translate-y-1/2 rounded-full bg-white p-1 shadow-md"
+      >
+        <ChevronRight size={24} className="text-gray-600" />
+      </button>
       <div
         ref={scrollRef}
         className="flex space-x-8 overflow-hidden"
-        onScroll={() => {
-          if (scrollRef.current) {
-            const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-            setShowLeftArrow(scrollLeft > 0);
-            setShowRightArrow(scrollLeft < scrollWidth - clientWidth);
-          }
-        }}
+        onScroll={() => {}}
       >
         {categories.map((category) => (
           <a
@@ -102,13 +85,14 @@ const CategoryBar: React.FC = () => {
             href={category.link_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex shrink-0 flex-col items-center space-y-2">
+            className="flex shrink-0 flex-col items-center space-y-2"
+          >
             <div className="flex size-12 items-center justify-center rounded-full bg-[#53507c]  shadow-xl">
-            {category.room_icon_url ? (
-            <img src={category.room_icon_url} className="text-white" />
-            ) : (
-            <span className="text-white">?</span>
-            )}
+              {category.room_icon_url ? (
+                <img src={category.room_icon_url} className="text-white" />
+              ) : (
+                <span className="text-white">?</span>
+              )}
             </div>
             <span className="text-xs text-white">{category.name}</span>
           </a>

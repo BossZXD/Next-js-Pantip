@@ -13,21 +13,23 @@ const CategoriesSchema = z.object({
   slug: z.string(),
 });
 
-
 const PantipCategoriesSchema = z.object({
   data: z.array(CategoriesSchema).optional(),
 });
 
 export async function getPantipCategories() {
   try {
-    const response = await fetch("https://pantip.com/api/forum-service/home/get_room_recommend?tracking_code=%7Brm9nr13oe1kKCSGSC9B8%7D", {
-      headers: {
-        "accept": "application/json, text/plain, */*",
-        "accept-language": "th,en-US;q=0.9,en;q=0.8",
-        "ptauthorize": "Basic dGVzdGVyOnRlc3Rlcg==",
+    const response = await fetch(
+      'https://pantip.com/api/forum-service/home/get_room_recommend?tracking_code=%7Brm9nr13oe1kKCSGSC9B8%7D',
+      {
+        headers: {
+          accept: 'application/json, text/plain, */*',
+          'accept-language': 'th,en-US;q=0.9,en;q=0.8',
+          ptauthorize: 'Basic dGVzdGVyOnRlc3Rlcg==',
+        },
+        next: { revalidate: 3600 },
       },
-      next: { revalidate: 3600 },
-    });
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -37,10 +39,7 @@ export async function getPantipCategories() {
     const validatedData = PantipCategoriesSchema.parse(rawData);
     return validatedData;
   } catch (error) {
-    console.error('Error fetching or parsing data:', error);
-    if (error instanceof z.ZodError) {
-      console.error('Zod validation errors:', JSON.stringify(error.errors, null, 2));
-    }
+    console.log('Error fetching or parsing data:', error);
     return { data: [] };
   }
 }
