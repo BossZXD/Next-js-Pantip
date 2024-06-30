@@ -83,7 +83,7 @@ const PantipHighlight: React.FC = () => {
             >
               <div className="relative z-10 aspect-square overflow-hidden">
                 <Image
-                  src={highlight.image_url ? highlight.image_url[0] : ''}
+                  src={highlight.image_url?.[0] ?? ''}
                   alt=""
                   height={400}
                   width={400}
