@@ -1,5 +1,4 @@
 import React from 'react';
-
 interface ClubCardProps {
   club: {
     id: number;
@@ -11,22 +10,17 @@ interface ClubCardProps {
 const ClubCard: React.FC<ClubCardProps> = ({ club }) => (
   <a
     href={`https://pantip.com/club/${club.id}`}
-    className="block overflow-hidden rounded-lg bg-gray-800 shadow-lg transition-shadow duration-300 hover:shadow-xl"
+    className="block overflow-hidden rounded-xl bg-[#53507c]/50 shadow-lg transition-all duration-300 hover:bg-[#53507c]/70 hover:shadow-xl"
   >
-    <div className="relative h-48 bg-gray-700">
+    <div className="relative aspect-square">
       <img
         src="https://via.placeholder.com/400x400"
         alt={club.name}
-        className="size-full object-cover"
+        className="transition-transform duration-300 group-hover:scale-105"
       />
-      {club.is_official && (
-        <span className="absolute left-2 top-2 rounded-full bg-[#fbc02d] px-2 py-1 text-xs font-semibold text-[#53507c]">
-          Official
-        </span>
-      )}
     </div>
     <div className="p-4">
-      <h3 className="mb-2 text-lg font-semibold text-white">{club.name}</h3>
+      <h3 className="text-lg font-semibold text-white line-clamp-2">{club.name}</h3>
     </div>
   </a>
 );

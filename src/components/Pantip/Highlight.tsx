@@ -2,17 +2,11 @@
 
 import React, { useEffect } from 'react';
 import { create } from 'zustand';
+import { getPantipHighlight } from '../../app/[locale]/(unauth)/api/room/getPantipHighlight';
+import { Card } from '../Card';
+import Image from 'next/image';
 
-import { getPantipHighlight } from '../app/[locale]/(unauth)/api/room/getPantipHighlight';
 /* eslint no-underscore-dangle: 0 */
-interface ImageCardProps {
-  src?: string;
-  alt?: string;
-  title?: string;
-  subtitle?: string;
-  width?: number;
-  height?: number;
-}
 
 interface Highlight {
   _id?: string;
@@ -42,29 +36,6 @@ const useHighlightStore = create<HighlightState>((set) => ({
     }
   },
 }));
-
-const ImageCard: React.FC<ImageCardProps> = ({
-  src,
-  alt,
-  title,
-  subtitle,
-  width = 400,
-  height = 400,
-}) => (
-  <div className="group relative overflow-hidden rounded-lg shadow-md transition-shadow duration-300 hover:shadow-xl">
-    <img
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      className="h-48 w-full object-cover"
-    />
-    <div className="absolute inset-x-0 bottom-0 bg-black bg-opacity-50 p-2 text-white">
-      <h3 className="text-sm font-semibold">{title}</h3>
-      <p className="text-xs">{subtitle}</p>
-    </div>
-  </div>
-);
 
 const PantipHighlight: React.FC = () => {
   const { highlights, fetchHighlights } = useHighlightStore();
@@ -96,29 +67,40 @@ const PantipHighlight: React.FC = () => {
     );
   }
 
+
   return (
-    <div className="relative bg-[#53507c] p-4">
-      <div className="mb-4 flex items-center justify-center pt-4">
-        <h2 className="py-4 text-2xl font-bold text-[#fbc02d]">Highlights</h2>
+    <div className="relative bg-gradient-to-br from-[#53507c] to-[#3f3d5e] rounded-3xl border border-zinc-100/10 p-8 dark:border-zinc-700/40 mt-4 shadow-2xl">
+      <div className="mb-8 flex items-center justify-center">
+        <h2 className="text-3xl font-bold text-[#fbc02d]">Highlights</h2>
       </div>
-      <div className="grid grid-cols-1 gap-6 pb-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+      <div className="grid grid-cols-1 gap-8 pb-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 ">
         {highlights.map((highlight) => (
-          <a
-            key={highlight._id}
-            href={highlight.post_url}
-            className="col-span-1"
-          >
-            <ImageCard
-              src={highlight.image_url ? highlight.image_url[0] : ''}
-              alt={highlight.name}
-              title={highlight.name}
-              subtitle={highlight.message}
-            />
+          <a href={highlight.post_url}>
+          <Card as="li" key={highlight._id} className="backdrop-blur-sm bg-white/5 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-105">
+            <div className="relative z-10 aspect-square overflow-hidden">
+              <Image
+                src={highlight.image_url ? highlight.image_url[0] : ""}
+                alt=""
+                height={400}
+                width={400}
+                className="h-full w-full rounded-md"
+                unoptimized
+              />
+            </div>
+            <div className="p-4">
+              <h2 className="mt-2 text-lg font-semibold text-white line-clamp-2">
+                {highlight.name}
+              </h2>
+              <Card.Description>{highlight.message}</Card.Description>
+              <p className="relative z-10 mt-4 flex text-sm font-medium text-[#fbc02d] transition group-hover:text-white">
+                <span>Read More</span>
+              </p>
+            </div>
+          </Card>
           </a>
         ))}
       </div>
     </div>
   );
 };
-
 export default PantipHighlight;

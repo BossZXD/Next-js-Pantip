@@ -1,4 +1,4 @@
-import Header from '@/components/Header';
+import Header from '@/components/Pantip/HeaderBar';
 
 const BaseTemplate = (props: { children: React.ReactNode }) => {
   return (

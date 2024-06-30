@@ -1,11 +1,11 @@
 import { getTranslations } from 'next-intl/server';
 
-import CategoryBar from '@/components/CategoryBar';
-import ForumTopics from '@/components/ForumTopics';
-import Highlight from '@/components/Highlight';
+import CategoryBar from '@/components/Pantip/CategoryBar';
+import ForumTopics from '@/components/Pantip/ForumTopics';
+import Highlight from '@/components/Pantip/Highlight';
 import PantipClubsList from '@/components/List/Club/PantipClubsList';
 import PantipTagHit from '@/components/List/Tag/PantipTagHit';
-import PantipMarket from '@/components/PantipMarket';
+import PantipMarket from '@/components/Pantip/PantipMarket';
 
 export async function generateMetadata(props: { params: { locale: string } }) {
   const t = await getTranslations({

@@ -2,7 +2,6 @@
 
 import React, { useEffect } from 'react';
 import { create } from 'zustand';
-
 import { getPantipTopic } from '@/app/[locale]/(unauth)/api/room/getPantipTopic';
 
 interface Author {
@@ -93,6 +92,8 @@ const SkeletonLoader: React.FC = () => (
   </div>
 );
 
+
+
 const ForumTopics: React.FC = () => {
   const { Topics, fetchTopic } = useTopicStore();
 
@@ -105,56 +106,56 @@ const ForumTopics: React.FC = () => {
   }
 
   return (
-    <div className="w-full bg-[#53507c]">
-      <div className="container mx-auto px-4 py-8">
+    <div className="w-full bg-gradient-to-br from-[#53507c] to-[#3f3d5e] mt-6 rounded-lg">
+      <div className="container mx-auto px-4 py-12">
         {Topics.map((topic) => (
-          <div key={topic.room_id} className="mb-8">
-            <div className="inline-flex items-center pb-4">
+          <div key={topic.room_id} className="mb-12 p-8 rounded-3xl bg-white/10 backdrop-blur-md shadow-2xl">
+            <div className="flex items-center pb-6">
               {topic.room_name_en && (
                 <img
                   src={`https://ptcdn.info/mobile/icon_room/pt-forum-${topic.room_name_en}.svg`}
                   alt={topic.room_name_en}
-                  className="size-10 text-white"
+                  className="w-12 h-12"
                 />
               )}
-              <h2 className="pl-2 text-2xl font-bold text-[#fbc02d]">
+              <h2 className="ml-4 text-3xl font-bold text-white">
                 {topic.room_name_th ?? topic.tag_name ?? ''}
               </h2>
             </div>
-            <div className="expanding-container overflow-hidden transition-[height] duration-500 ease-in-out">
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {topic.topics?.map((subTopic) => (
-                  <a
-                    href={`https://pantip.com/topic/${subTopic.topic_id}`}
-                    key={subTopic.topic_id}
-                    className="rounded-lg bg-white p-4 shadow transition-shadow duration-300 hover:shadow-lg"
-                  >
-                    <h3 className="mb-2 text-lg font-semibold text-[#53507c]">
-                      {subTopic.title}
-                    </h3>
-                    <p className="mb-2 text-sm text-gray-600">
-                      โดย: {subTopic.author?.name} | จำนวนผู้เข้าชม:{' '}
-                      {subTopic.views_count} | ความคิดเห็น:{' '}
-                      {subTopic.comments_count}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {subTopic.tags?.map((tag) => (
-                        <span
-                          key={tag.slug}
-                          className="rounded-full bg-gray-200 px-2 py-1 text-xs"
-                        >
-                          {tag.name}
-                        </span>
-                      ))}
-                    </div>
-                  </a>
-                ))}
-              </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {topic.topics?.map((subTopic) => (
+                <a
+                  href={`https://pantip.com/topic/${subTopic.topic_id}`}
+                  key={subTopic.topic_id}
+                  className="block rounded-xl bg-white/5 p-6 transition duration-300 hover:bg-white/10 hover:shadow-lg"
+                >
+                  <h3 className="mb-3 text-lg font-semibold text-white line-clamp-2">
+                    {subTopic.title}
+                  </h3>
+                  <p className="mb-4 text-sm text-gray-300">
+                    {subTopic.author?.name}
+                  </p>
+                  <div className="flex justify-between text-xs text-gray-400">
+                    <span>{subTopic.views_count} views</span>
+                    <span>{subTopic.comments_count} comments</span>
+                  </div>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {subTopic.tags?.slice(0, 3).map((tag) => (
+                      <span
+                        key={tag.slug}
+                        className="rounded-full bg-white/10 px-3 py-1 text-xs text-gray-200"
+                      >
+                        {tag.name}
+                      </span>
+                    ))}
+                  </div>
+                </a>
+              ))}
             </div>
-            <div className="mt-6 text-center">
+            <div className="mt-8 text-center">
               <a
                 href={`https://pantip.com/forum/${topic.room_name_en}`}
-                className="rounded-lg bg-white px-4 py-2 text-[#53507c] transition-colors duration-300 hover:bg-gray-100"
+                className="inline-block rounded-full bg-white/10 px-6 py-3 text-sm font-medium text-white transition-colors duration-300 hover:bg-white/20"
               >
                 แสดงเพิ่มเติม
               </a>
@@ -165,5 +166,4 @@ const ForumTopics: React.FC = () => {
     </div>
   );
 };
-
 export default ForumTopics;

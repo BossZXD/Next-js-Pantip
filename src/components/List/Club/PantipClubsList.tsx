@@ -49,7 +49,7 @@ export default function PantipClubsList() {
   }, [fetchClubs]);
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 mt-12 rounded-2xl border border-zinc-100 dark:border-zinc-700/40 mt-4 shadow-xl">
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-3xl font-bold text-[#fbc02d]">Pantip Clubs</h2>
         <a
