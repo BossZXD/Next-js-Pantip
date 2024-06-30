@@ -1,10 +1,10 @@
 import { getTranslations } from 'next-intl/server';
 
+import PantipClubsList from '@/components/List/Club/PantipClubsList';
+import PantipTagHit from '@/components/List/Tag/PantipTagHit';
 import CategoryBar from '@/components/Pantip/CategoryBar';
 import ForumTopics from '@/components/Pantip/ForumTopics';
 import Highlight from '@/components/Pantip/Highlight';
-import PantipClubsList from '@/components/List/Club/PantipClubsList';
-import PantipTagHit from '@/components/List/Tag/PantipTagHit';
 import PantipMarket from '@/components/Pantip/PantipMarket';
 
 export async function generateMetadata(props: { params: { locale: string } }) {

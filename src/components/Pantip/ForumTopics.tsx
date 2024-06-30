@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { create } from 'zustand';
+
 import { getPantipTopic } from '@/app/[locale]/(unauth)/api/room/getPantipTopic';
 
 interface Author {
@@ -92,8 +93,6 @@ const SkeletonLoader: React.FC = () => (
   </div>
 );
 
-
-
 const ForumTopics: React.FC = () => {
   const { Topics, fetchTopic } = useTopicStore();
 
@@ -106,16 +105,19 @@ const ForumTopics: React.FC = () => {
   }
 
   return (
-    <div className="w-full bg-gradient-to-br from-[#53507c] to-[#3f3d5e] mt-6 rounded-lg">
+    <div className="mt-6 w-full rounded-lg bg-gradient-to-br from-[#53507c] to-[#3f3d5e]">
       <div className="container mx-auto px-4 py-12">
         {Topics.map((topic) => (
-          <div key={topic.room_id} className="mb-12 p-8 rounded-3xl bg-white/10 backdrop-blur-md shadow-2xl">
+          <div
+            key={topic.room_id}
+            className="mb-12 rounded-3xl bg-white/10 p-8 shadow-2xl backdrop-blur-md"
+          >
             <div className="flex items-center pb-6">
               {topic.room_name_en && (
                 <img
                   src={`https://ptcdn.info/mobile/icon_room/pt-forum-${topic.room_name_en}.svg`}
                   alt={topic.room_name_en}
-                  className="w-12 h-12"
+                  className="size-12"
                 />
               )}
               <h2 className="ml-4 text-3xl font-bold text-white">
@@ -129,7 +131,7 @@ const ForumTopics: React.FC = () => {
                   key={subTopic.topic_id}
                   className="block rounded-xl bg-white/5 p-6 transition duration-300 hover:bg-white/10 hover:shadow-lg"
                 >
-                  <h3 className="mb-3 text-lg font-semibold text-white line-clamp-2">
+                  <h3 className="mb-3 line-clamp-2 text-lg font-semibold text-white">
                     {subTopic.title}
                   </h3>
                   <p className="mb-4 text-sm text-gray-300">

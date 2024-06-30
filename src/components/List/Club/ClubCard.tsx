@@ -1,4 +1,5 @@
 import React from 'react';
+
 interface ClubCardProps {
   club: {
     id: number;
@@ -20,7 +21,9 @@ const ClubCard: React.FC<ClubCardProps> = ({ club }) => (
       />
     </div>
     <div className="p-4">
-      <h3 className="text-lg font-semibold text-white line-clamp-2">{club.name}</h3>
+      <h3 className="line-clamp-2 text-lg font-semibold text-white">
+        {club.name}
+      </h3>
     </div>
   </a>
 );

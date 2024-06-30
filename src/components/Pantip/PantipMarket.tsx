@@ -54,9 +54,9 @@ const SkeletonProduct: React.FC = () => (
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => (
   <a
     href={product.url}
-    className="group block overflow-hidden rounded-xl bg-gray-800 shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+    className="group block overflow-hidden rounded-xl bg-gray-800 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
   >
-    <div className="relative h-56 bg-gray-700 overflow-hidden">
+    <div className="relative h-56 overflow-hidden bg-gray-700">
       <img
         src={product.thumbnail_url}
         alt={product.title}
@@ -69,7 +69,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => (
       )}
     </div>
     <div className="p-5">
-      <h3 className="mb-2 line-clamp-2 text-lg font-semibold text-white group-hover:text-[#fbc02d] transition-colors duration-300">
+      <h3 className="mb-2 line-clamp-2 text-lg font-semibold text-white transition-colors duration-300 group-hover:text-[#fbc02d]">
         {product.title}
       </h3>
     </div>
@@ -88,13 +88,11 @@ const PantipMarketProducts: React.FC = () => {
   }, [fetchProducts]);
 
   return (
-    <div className="w-full bg-gradient-to-br from-[#53507c] to-[#3f3d5e] mt-6 rounded-lg">
+    <div className="mt-6 w-full rounded-lg bg-gradient-to-br from-[#53507c] to-[#3f3d5e]">
       <div className="container mx-auto px-4 py-12">
-        <div className="mb-12 p-8 rounded-3xl bg-white/10 backdrop-blur-md shadow-2xl">
+        <div className="mb-12 rounded-3xl bg-white/10 p-8 shadow-2xl backdrop-blur-md">
           <div className="flex items-center pb-6">
-            <h2 className="text-3xl font-bold text-white">
-              Pantip Market
-            </h2>
+            <h2 className="text-3xl font-bold text-white">Pantip Market</h2>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             {isLoading

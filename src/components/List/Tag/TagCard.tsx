@@ -24,7 +24,6 @@ const TagCard: React.FC<TagCardProps> = ({ tag }) => (
       <h3 className="mb-2 text-lg font-semibold text-white">{tag.name}</h3>
     </div>
   </a>
-
 );
 
 export default TagCard;
